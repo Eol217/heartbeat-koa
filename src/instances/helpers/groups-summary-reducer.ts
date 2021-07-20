@@ -7,14 +7,13 @@ interface CurrentInstanceDto {
   updatedAt: number;
 }
 
+
 interface GroupsDictionaryDto {
   [key: string]: GroupDto;
 }
 
-function groupsSummaryReducer(
-  result: GroupsDictionaryDto,
-  current: CurrentInstanceDto,
-): GroupsDictionaryDto {
+
+function groupsSummaryReducer (result: GroupsDictionaryDto, current: CurrentInstanceDto): GroupsDictionaryDto {
   const { group, createdAt, updatedAt } = current;
   const groupInfo = result[group];
 

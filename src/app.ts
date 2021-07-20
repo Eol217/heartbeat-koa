@@ -15,7 +15,7 @@ app.use(async (ctx: Koa.Context, next: Koa.Next) => {
   } catch (error) {
     ctx.status = error.statusCode || error.status || StatusCodes.INTERNAL_SERVER_ERROR;
     error.status = ctx.status;
-    ctx.body = {error};
+    ctx.body = { error };
     ctx.app.emit('error', error, ctx);
   }
 });

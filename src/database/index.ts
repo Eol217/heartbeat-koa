@@ -2,10 +2,8 @@ import * as mongoose from 'mongoose';
 import { config } from '../config';
 
 
-
-
 const MongoDB = {
-  init(): void{
+  init (): void {
     const options = {
       useNewUrlParser: true,
       useUnifiedTopology: true

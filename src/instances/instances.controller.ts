@@ -7,7 +7,7 @@ import { instancesService } from './instances.service';
 const router: Router = new Router();
 
 router.post('/:group/:id', async (ctx: Koa.Context) => {
-  const {params, request: {body: meta}} = ctx
+  const { params, request: { body: meta } } = ctx
   const dateNow = Date.now();
   let status = StatusCodes.CREATED;
   const doesInstanceExist = await instancesService.doesExist(params)

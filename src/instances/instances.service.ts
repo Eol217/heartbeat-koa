@@ -4,7 +4,7 @@ import { CreateInstanceDto, IdentifyInstanceDto, UpdateInstanceDto, GroupDto } f
 
 
 class InstancesService {
-  private readonly fieldsToHideSelector = {_id: 0, __v: 0};
+  private readonly fieldsToHideSelector = { _id: 0, __v: 0 };
 
   async create (createInstanceDto: CreateInstanceDto): Promise<void> {
     await InstanceModel.create(createInstanceDto)
@@ -31,7 +31,7 @@ class InstancesService {
   }
 
   async getGroupInstances (group: string) {
-    const query = {group};
+    const query = { group };
 
     return InstanceModel.find(query, this.fieldsToHideSelector);
   }
@@ -39,8 +39,8 @@ class InstancesService {
   // it isn't specified, should meta be updated or not
   // I decided that we shouldn't lose a possible new meta
   async updateTimestampAndMeta (UpdateInstanceDto: UpdateInstanceDto) {
-    const {updatedAt, meta, ...query} = UpdateInstanceDto;
-    const updater = {$set: {updatedAt, meta}};
+    const { updatedAt, meta, ...query } = UpdateInstanceDto;
+    const updater = { $set: { updatedAt, meta } };
     await InstanceModel.updateOne(query, updater);
   }
 
@@ -52,12 +52,13 @@ class InstancesService {
     console.log('InstancesService::removeExpiredInstances -- periodic job started');
     const dateNow = Date.now();
     const theEdge = dateNow - instanceExpirationTimeInMs;
-    const query = {updatedAt: {$lte: theEdge}};
-    const {deletedCount} = await InstanceModel.deleteMany(query);
+    const query = { updatedAt: { $lte: theEdge } };
+    const { deletedCount } = await InstanceModel.deleteMany(query);
     console.log(`InstancesService::removeExpiredInstances -- amount of deleted instances: ${deletedCount}`);
     console.log('InstancesService::removeExpiredInstances -- periodic job finished');
   }
 }
+
 
 const instancesService: InstancesService = new InstancesService()
 
