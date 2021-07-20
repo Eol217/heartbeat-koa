@@ -1,6 +1,6 @@
 import InstanceModel from '../database/models/instance.model';
 import { groupsSummaryReducer } from './helpers/groups-summary-reducer';
-import { CreateInstanceDto, IdentifyInstanceDto, UpdateInstanceDto, GroupDto } from './dto'
+import { CreateInstanceDto, IdentifyInstanceDto, UpdateInstanceDto } from './dto'
 
 
 
@@ -55,8 +55,7 @@ const InstancesService = {
     const theEdge = dateNow - instanceExpirationTimeInMs;
     const query = { updatedAt: { $lte: theEdge } };
     const { deletedCount } = await InstanceModel.deleteMany(query);
-    console.log(`InstancesService::removeExpiredInstances -- amount of deleted instances: ${deletedCount}`,
-    );
+    console.log(`InstancesService::removeExpiredInstances -- amount of deleted instances: ${deletedCount}`);
     console.log('InstancesService::removeExpiredInstances -- periodic job finished');
   }
 }

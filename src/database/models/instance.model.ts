@@ -1,4 +1,4 @@
-import { Schema, Document, model } from 'mongoose'
+import { Schema, model } from 'mongoose'
 
 
 export interface Instance {
@@ -10,10 +10,6 @@ export interface Instance {
 }
 
 
-// export interface InstanceModel extends Instance, Document {}
-export interface InstanceModel extends Instance {}
-
-
 const instanceSchema = new Schema({
   id: String,
   group: String,
@@ -23,4 +19,4 @@ const instanceSchema = new Schema({
 })
 
 
-export default model<InstanceModel>('Instance', instanceSchema)
+export default model<Instance>('Instance', instanceSchema)

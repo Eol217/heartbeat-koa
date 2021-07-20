@@ -1,10 +1,5 @@
-// use dtos from dto
-interface GroupDto {
-  group: string;
-  instances: string;
-  createdAt: number;
-  updatedAt: number;
-}
+import { GroupDto } from '../dto';
+
 
 interface CurrentInstanceDto {
   group: string;

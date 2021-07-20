@@ -1,12 +1,17 @@
 import * as mongoose from 'mongoose';
-import { config } from "../config";
+import { config } from '../config';
 
 
 
 
 const MongoDB = {
   init() {
-    return mongoose.connect(config.mongoUrl)
+    const options = {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    }
+
+    return mongoose.connect(config.mongoUrl, options)
   },
 };
 
