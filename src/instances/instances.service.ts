@@ -1,4 +1,4 @@
-import InstanceModel from '../database/models/instance.model';
+import InstanceModel, { Instance } from '../database/models/instance.model';
 import { groupsSummaryReducer } from './helpers/groups-summary-reducer';
 import { CreateInstanceDto, IdentifyInstanceDto, UpdateInstanceDto, GroupDto } from './dto'
 
@@ -6,7 +6,7 @@ import { CreateInstanceDto, IdentifyInstanceDto, UpdateInstanceDto, GroupDto } f
 class InstancesService {
   private readonly fieldsToHideSelector = { _id: 0, __v: 0 };
 
-  async create (createInstanceDto: CreateInstanceDto): Promise<void> {
+  async create (createInstanceDto: CreateInstanceDto) {
     await InstanceModel.create(createInstanceDto)
   }
 
@@ -22,15 +22,15 @@ class InstancesService {
     return Object.values(preparedInstances);
   }
 
-  async doesExist (query: IdentifyInstanceDto) {
+  async doesExist (query: IdentifyInstanceDto): Promise<boolean> {
     return Boolean(await InstanceModel.countDocuments(query));
   }
 
-  async findOne (query: IdentifyInstanceDto) {
+  async findOne (query: IdentifyInstanceDto): Promise<Instance | null> {
     return InstanceModel.findOne(query, this.fieldsToHideSelector);
   }
 
-  async getGroupInstances (group: string) {
+  async getGroupInstances (group: string): Promise<Instance[]> {
     const query = { group };
 
     return InstanceModel.find(query, this.fieldsToHideSelector);
@@ -44,8 +44,10 @@ class InstancesService {
     await InstanceModel.updateOne(query, updater);
   }
 
-  async remove (query: IdentifyInstanceDto) {
-    await InstanceModel.deleteOne(query);
+  async remove (query: IdentifyInstanceDto): Promise<boolean> {
+    const result = await InstanceModel.deleteOne(query);
+
+    return Boolean(result.deletedCount)
   }
 
   async removeExpiredInstances (instanceExpirationTimeInMs: number) {
