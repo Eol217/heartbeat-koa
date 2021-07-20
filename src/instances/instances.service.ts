@@ -47,25 +47,18 @@ const InstancesService = {
 
   remove: async (query: IdentifyInstanceDto) => {
     await InstanceModel.deleteOne(query);
-  }
+  },
 
-  // // it's impossible to use an enviroment variable inside a decorator with '@nestjs/config'
-  // // so, if we want to do it, we have to use the native dotenv config
-  // @Interval(InstanceExpirationCheckIntervalMs)
-  // async removeExpiredInstances() {
-  //   this.logger.log('removeExpiredInstances -- periodic job started');
-  //   const instanceExpirationTimeInMs =
-  //     Number(this.configService.get<string>('INSTANCE_EXPIRATION_TIME_MS')) ||
-  //     InstanceExpirationTimeMsDefault;
-  //   const dateNow = Date.now();
-  //   const theEdge = dateNow - instanceExpirationTimeInMs;
-  //   const query = { updatedAt: { $lte: theEdge } };
-  //   const { deletedCount } = await InstanceModel.deleteMany(query);
-  //   this.logger.log(
-  //     `removeExpiredInstances -- amount of deleted instances: ${deletedCount}`,
-  //   );
-  //   this.logger.log('removeExpiredInstances -- periodic job finished');
-  // }
+  removeExpiredInstances: async (instanceExpirationTimeInMs: number) => {
+    console.log('InstancesService::removeExpiredInstances -- periodic job started');
+    const dateNow = Date.now();
+    const theEdge = dateNow - instanceExpirationTimeInMs;
+    const query = { updatedAt: { $lte: theEdge } };
+    const { deletedCount } = await InstanceModel.deleteMany(query);
+    console.log(`InstancesService::removeExpiredInstances -- amount of deleted instances: ${deletedCount}`,
+    );
+    console.log('InstancesService::removeExpiredInstances -- periodic job finished');
+  }
 }
 
 export {
