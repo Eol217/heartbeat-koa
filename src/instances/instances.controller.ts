@@ -10,7 +10,7 @@ router.post('/:group/:id', async (ctx: Koa.Context) => {
   const {params, request: {body: meta}} = ctx
   const dateNow = Date.now();
   let status = StatusCodes.CREATED;
-  let doesInstanceExist = await InstancesService.doesExist(params)
+  const doesInstanceExist = await InstancesService.doesExist(params)
 
   if (doesInstanceExist) {
     const updater = {
