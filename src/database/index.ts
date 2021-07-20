@@ -5,13 +5,13 @@ import { config } from '../config';
 
 
 const MongoDB = {
-  init() {
+  init(): void{
     const options = {
       useNewUrlParser: true,
       useUnifiedTopology: true
     }
 
-    return mongoose.connect(config.mongoUrl, options)
+    mongoose.connect(config.mongoUrl, options)
   },
 };
 

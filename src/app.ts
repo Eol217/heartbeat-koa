@@ -9,8 +9,7 @@ import MongoDB from './database';
 
 const app: Koa = new Koa();
 
-// Generic error handling middleware.
-app.use(async (ctx: Koa.Context, next: () => Promise<any>) => {
+app.use(async (ctx: Koa.Context, next: Koa.Next) => {
   try {
     await next();
   } catch (error) {
@@ -21,20 +20,15 @@ app.use(async (ctx: Koa.Context, next: () => Promise<any>) => {
   }
 });
 
-// Middleware
 app.use(bodyParser());
 
-// Route middleware.
 app.use(instancesController.routes());
 app.use(instancesController.allowedMethods());
 
-// Register cron job to do any action needed
 cron.start();
 
-// Connecting to MongoDB
 MongoDB.init();
 
-// Application error logging.
 app.on('error', console.error);
 
 export default app;

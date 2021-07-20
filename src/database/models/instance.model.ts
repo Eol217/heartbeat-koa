@@ -6,7 +6,7 @@ export interface Instance {
   group: string;
   createdAt: number;
   updatedAt: number;
-  meta: object;
+  meta: unknown;
 }
 
 
