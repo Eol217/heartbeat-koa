@@ -4,6 +4,8 @@ import * as bodyParser from 'koa-bodyparser';
 
 import { cron } from "./cron";
 import instancesController from './instances/instances.controller';
+import MongoDB from "./database";
+
 
 const app:Koa = new Koa();
 
@@ -28,6 +30,9 @@ app.use(instancesController.allowedMethods());
 
 // Register cron job to do any action needed
 cron.start();
+
+// Connecting to MongoDB
+MongoDB.init();
 
 // Application error logging.
 app.on('error', console.error);
