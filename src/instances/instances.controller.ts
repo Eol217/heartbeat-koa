@@ -49,3 +49,7 @@ router.delete('/:group/:id', async (ctx: Koa.Context) => {
 
 
 export default router;
+
+// add a readme
+// remove tslint, use eslint
+// should errors prevent build like in nestjs?
