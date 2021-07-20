@@ -1,7 +1,7 @@
 import * as Koa from 'koa';
 import * as Router from 'koa-router';
 import { StatusCodes } from 'http-status-codes';
-import { InstancesService } from './instances.service';
+import { instancesService } from './instances.service';
 
 
 const router: Router = new Router();
@@ -10,7 +10,7 @@ router.post('/:group/:id', async (ctx: Koa.Context) => {
   const {params, request: {body: meta}} = ctx
   const dateNow = Date.now();
   let status = StatusCodes.CREATED;
-  const doesInstanceExist = await InstancesService.doesExist(params)
+  const doesInstanceExist = await instancesService.doesExist(params)
 
   if (doesInstanceExist) {
     const updater = {
@@ -18,7 +18,7 @@ router.post('/:group/:id', async (ctx: Koa.Context) => {
       meta,
       updatedAt: dateNow,
     };
-    await InstancesService.updateTimestampAndMeta(updater);
+    await instancesService.updateTimestampAndMeta(updater);
     status = StatusCodes.OK;
   } else {
     const instance = {
@@ -28,23 +28,23 @@ router.post('/:group/:id', async (ctx: Koa.Context) => {
       updatedAt: dateNow,
     };
 
-    await InstancesService.create(instance);
+    await instancesService.create(instance);
   }
 
   ctx.status = status;
-  ctx.body = await InstancesService.findOne(params);
+  ctx.body = await instancesService.findOne(params);
 });
 
 router.get('/', async (ctx: Koa.Context) => {
-  ctx.body = await InstancesService.getGroups();
+  ctx.body = await instancesService.getGroups();
 });
 
 router.get('/:group', async (ctx: Koa.Context) => {
-  ctx.body = await InstancesService.getGroupInstances(ctx.params.group);
+  ctx.body = await instancesService.getGroupInstances(ctx.params.group);
 });
 
 router.delete('/:group/:id', async (ctx: Koa.Context) => {
-  ctx.body = await InstancesService.remove(ctx.params);
+  ctx.body = await instancesService.remove(ctx.params);
 });
 
 
