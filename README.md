@@ -2,8 +2,7 @@
 
 ### Installation
 
-
-`npm install`
+`yarn install`
 
 ### Running
 
@@ -20,11 +19,12 @@ After running the sample, you can stop the Docker container with
 `docker-compose down`
 
 ### Environment Variables
+
 Create a `.env` file from the `.example.env`
 
 ### Run the sample
 
 Then, run the app as usual:
 
-`npm run start`
+`yarn start`
 
