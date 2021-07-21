@@ -22,7 +22,7 @@ function groupsSummaryReducer (result: GroupsDictionaryDto, current: CurrentInst
       group,
       instances: '1',
       createdAt,
-      updatedAt,
+      lastUpdatedAt: updatedAt,
     };
 
     return result;
@@ -30,7 +30,7 @@ function groupsSummaryReducer (result: GroupsDictionaryDto, current: CurrentInst
 
   result[group].instances = String(Number(groupInfo.instances) + 1);
   result[group].createdAt = Math.min(groupInfo.createdAt, createdAt);
-  result[group].updatedAt = Math.max(groupInfo.updatedAt, updatedAt);
+  result[group].lastUpdatedAt = Math.max(groupInfo.lastUpdatedAt, updatedAt);
 
   return result;
 }
