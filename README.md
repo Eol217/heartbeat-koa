@@ -7,7 +7,7 @@
 
 ### Running
 
-This app requires docker or a local mongodb installation.  If using a local mongodb, see `app.module.ts` for connection options, and make sure there are matching options for the mongodb installation and the source code.
+This app requires docker or a local mongodb installation. `MONGO_URL` can be configured via the `.env` file. 
 
 #### Docker
 
