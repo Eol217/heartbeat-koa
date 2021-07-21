@@ -59,7 +59,7 @@ router.delete('/:group/:id', async (ctx: Koa.Context) => {
 
   if (!isRemoved) ctx.throw(StatusCodes.NOT_FOUND)
 
-  ctx.status = StatusCodes.OK;
+  ctx.status = StatusCodes.NO_CONTENT;
 });
 
 
