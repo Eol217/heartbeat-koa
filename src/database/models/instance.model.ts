@@ -1,7 +1,7 @@
-import { Schema, model } from 'mongoose'
+import { Schema, model, Document } from 'mongoose'
 
 
-export interface Instance {
+export interface Instance extends Document {
   id: string;
   group: string;
   createdAt: number;
@@ -11,10 +11,10 @@ export interface Instance {
 
 
 const instanceSchema = new Schema({
-  id: String,
-  group: String,
-  createdAt: Number,
-  updatedAt: Number,
+  id: { type: String, required: true },
+  group: { type: String, required: true },
+  createdAt: { type: Number, required: true },
+  updatedAt: { type: Number, required: true },
   meta: Object,
 })
 
