@@ -17,6 +17,6 @@ const instanceSchema = new Schema({
   updatedAt: { type: Number, required: true },
   meta: Object,
 })
-
+  .index({ group: 1, id: 1 }, { unique: true })
 
 export default model<Instance>('Instance', instanceSchema)
