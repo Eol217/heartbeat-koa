@@ -10,13 +10,18 @@ export interface Instance extends Document {
 }
 
 
-const instanceSchema = new Schema({
-  id: { type: String, required: true },
-  group: { type: String, required: true },
-  createdAt: { type: Number, required: true },
-  updatedAt: { type: Number, required: true },
-  meta: Object,
-})
-
+const instanceSchema = new Schema(
+  {
+    id: { type: String, required: true },
+    group: { type: String, required: true },
+    createdAt: { type: Number },
+    updatedAt: { type: Number },
+    meta: Object,
+  },
+  {
+    timestamps: { currentTime: Date.now }
+  }
+)
+  .index({ group: 1, id: 1 }, { unique: true })
 
 export default model<Instance>('Instance', instanceSchema)

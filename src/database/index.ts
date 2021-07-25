@@ -6,7 +6,8 @@ const MongoDB = {
   init (): void {
     const options = {
       useNewUrlParser: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
+      useCreateIndex: true,
     }
 
     mongoose.connect(config.mongoUrl, options)

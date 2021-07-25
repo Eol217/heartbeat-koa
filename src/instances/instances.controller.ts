@@ -8,7 +8,6 @@ const router: Router = new Router();
 
 router.post('/:group/:id', async (ctx: Koa.Context) => {
   const { params, request: { body: meta } } = ctx
-  const dateNow = Date.now();
   let status = StatusCodes.CREATED;
   const doesInstanceExist = await instancesService.doesExist(params)
 
@@ -16,7 +15,6 @@ router.post('/:group/:id', async (ctx: Koa.Context) => {
     const updater = {
       ...params,
       meta,
-      updatedAt: dateNow,
     };
     await instancesService.updateTimestampAndMeta(updater);
     status = StatusCodes.OK;
@@ -24,8 +22,6 @@ router.post('/:group/:id', async (ctx: Koa.Context) => {
     const instance = {
       ...params,
       meta,
-      createdAt: dateNow,
-      updatedAt: dateNow,
     };
 
     await instancesService.create(instance);

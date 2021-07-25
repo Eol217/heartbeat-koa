@@ -39,8 +39,8 @@ class InstancesService {
   // it isn't specified, should meta be updated or not
   // I decided that we shouldn't lose a possible new meta
   async updateTimestampAndMeta (UpdateInstanceDto: UpdateInstanceDto) {
-    const { updatedAt, meta, ...query } = UpdateInstanceDto;
-    const updater = { $set: { updatedAt, meta } };
+    const { meta, ...query } = UpdateInstanceDto;
+    const updater = { $set: { meta } };
     await InstanceModel.updateOne(query, updater);
   }
 
