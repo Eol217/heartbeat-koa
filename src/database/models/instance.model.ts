@@ -1,4 +1,5 @@
 import { Schema, model, Document } from 'mongoose'
+import { config } from '../../config';
 
 
 export interface Instance extends Document {
@@ -6,6 +7,7 @@ export interface Instance extends Document {
   group: string;
   createdAt: number;
   updatedAt: number;
+  lastHeartBeat: Date;
   meta: unknown;
 }
 
@@ -16,6 +18,7 @@ const instanceSchema = new Schema(
     group: { type: String, required: true },
     createdAt: { type: Number },
     updatedAt: { type: Number },
+    lastHeartBeat: { type: Date, default: Date.now },
     meta: Object,
   },
   {
@@ -23,5 +26,6 @@ const instanceSchema = new Schema(
   }
 )
   .index({ group: 1, id: 1 }, { unique: true })
+  .index({ lastHeartBeat: 1 }, { expireAfterSeconds: config.instanceExpirationTimeSec })
 
 export default model<Instance>('Instance', instanceSchema)

@@ -2,7 +2,6 @@ import * as Koa from 'koa';
 import * as bodyParser from 'koa-bodyparser';
 import { StatusCodes } from 'http-status-codes';
 
-import { cron } from './cron';
 import instancesController from './instances/instances.controller';
 import MongoDB from './database';
 
@@ -24,8 +23,6 @@ app.use(bodyParser());
 
 app.use(instancesController.routes());
 app.use(instancesController.allowedMethods());
-
-cron.start();
 
 MongoDB.init();
 

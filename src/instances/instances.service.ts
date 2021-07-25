@@ -4,7 +4,7 @@ import { CreateInstanceDto, IdentifyInstanceDto, UpdateInstanceDto, GroupDto } f
 
 
 class InstancesService {
-  private readonly fieldsToHideSelector = { _id: 0, __v: 0 };
+  private readonly fieldsToHideSelector = { _id: 0, __v: 0, lastHeartBeat: 0 };
 
   async create (createInstanceDto: CreateInstanceDto) {
     await InstanceModel.create(createInstanceDto)
@@ -48,16 +48,6 @@ class InstancesService {
     const result = await InstanceModel.deleteOne(query);
 
     return Boolean(result.deletedCount)
-  }
-
-  async removeExpiredInstances (instanceExpirationTimeInMs: number) {
-    console.log('InstancesService::removeExpiredInstances -- periodic job started');
-    const dateNow = Date.now();
-    const theEdge = dateNow - instanceExpirationTimeInMs;
-    const query = { updatedAt: { $lte: theEdge } };
-    const { deletedCount } = await InstanceModel.deleteMany(query);
-    console.log(`InstancesService::removeExpiredInstances -- amount of deleted instances: ${deletedCount}`);
-    console.log('InstancesService::removeExpiredInstances -- periodic job finished');
   }
 }
 
