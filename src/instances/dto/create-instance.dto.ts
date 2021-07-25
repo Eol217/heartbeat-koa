@@ -1,5 +1,6 @@
-import { Instance as CreateInstanceDto } from '../../database/models/instance.model';
+import { IdentifyInstanceDto } from './identify-instance.dto';
 
-export {
-  CreateInstanceDto
+
+export interface CreateInstanceDto extends IdentifyInstanceDto {
+  meta: unknown;
 }
