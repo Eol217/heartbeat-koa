@@ -3,7 +3,6 @@ import * as bodyParser from 'koa-bodyparser';
 import { StatusCodes } from 'http-status-codes';
 
 import instancesController from './instances/instances.controller';
-import MongoDB from './database';
 
 
 const app: Koa = new Koa();
@@ -23,8 +22,6 @@ app.use(bodyParser());
 
 app.use(instancesController.routes());
 app.use(instancesController.allowedMethods());
-
-MongoDB.init();
 
 app.on('error', console.error);
 
