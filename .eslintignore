@@ -1,4 +1,10 @@
+.idea
 node_modules
 dist
 coverage
 .eslintrc.js
+jest.config.js
+*.json
+*.lock
+*.log
+*.spec.js
