@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build-and-lint:
+  lint-and-test:
     docker:
       - image: cimg/node:16.5.0
     steps:
@@ -21,8 +21,11 @@ jobs:
       - run:
           name: Lint
           command: yarn lint
+      - run:
+          name: Test endpoints
+          command: yarn test
 
 workflows:
   sample:
     jobs:
-      - build-and-lint
+      - lint-and-test
